@@ -14,7 +14,8 @@
 				"CoreUObject",
 				"UMG",
 				"ProceduralMeshComponent",
-				"DeveloperSettings"
+				"DeveloperSettings",
+				"WebBrowserWidget"
 			]
 		}
 	],
@@ -27,27 +28,15 @@
 			]
 		},
 		{
-			"Name": "GameplayAbilities",
-			"Enabled": true
-		},
-		{
 			"Name": "CommonUI",
 			"Enabled": true
 		},
+        {
+            "Name": "GameplayAbilities",
+            "Enabled": true
+        },
 		{
 			"Name": "Metasound",
-			"Enabled": true
-		},
-		{
-			"Name": "OnlineSubsystemAccelByte",
-			"Enabled": true
-		},
-		{
-			"Name": "AccelByteNetworkUtilities",
-			"Enabled": true
-		},
-		{
-			"Name": "AccelByteUe4Sdk",
 			"Enabled": true
 		},
 		{
@@ -55,19 +44,16 @@
 			"Enabled": true
 		},
 		{
-			"Name": "OnlineSubsystemEOS",
+			"Name": "Xsolla",
 			"Enabled": true
 		},
 		{
-			"Name": "OnlineSubsystemGoogle",
+			"Name": "XsollaBackendSdk",
 			"Enabled": true
 		},
 		{
-			"Name": "OnlineSubsystemGooglePlay",
-			"Enabled": true,
-			"SupportedTargetPlatforms": [
-				"Android"
-			]
+			"Name": "WebBrowserWidget",
+			"Enabled": true
 		}
 	]
 }

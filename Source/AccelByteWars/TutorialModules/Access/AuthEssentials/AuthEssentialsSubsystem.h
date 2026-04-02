@@ -49,9 +49,9 @@ public:
 // @@@MULTISNIP IdentityInterface {"selectedLines": ["1", "4"]}
 // @@@MULTISNIP Credentials {"selectedLines": ["1", "5"]}
 // @@@MULTISNIP OnLoginComplete {"selectedLines": ["1", "2"]}
-protected:
 	void OnLoginComplete(int32 LocalUserNum, bool bLoginWasSuccessful, const FUniqueNetId& UserId, const FString& LoginError, const FAuthOnLoginCompleteDelegate OnLoginComplete);
 
+protected:
 	FOnlineIdentityAccelBytePtr IdentityInterface;
 	FOnlineAccountCredentials Credentials;
 // @@@SNIPEND

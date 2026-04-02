@@ -9,6 +9,8 @@
 #include "Core/UI/Components/AccelByteWarsWidgetSwitcher.h"
 #include "Monetization/InGameStoreEssentials/InGameStoreEssentialsSubsystem.h"
 #include "Monetization/NativePlatformPurchase/NativePlatformPurchaseSubsystem.h"
+#include "Monetization/InGameBrowser/UI/InGameBrowserWidget.h"
+#include "Core/UI/Components/Prompt/PromptSubsystem.h"
 #include "ShopWidget.generated.h"
 
 class UCommonButtonBase;
@@ -18,6 +20,7 @@ class UStoreItemListEntry;
 class UPanelWidget;
 class UStoreItemDetailWidget;
 class UAccelByteWarsTabListWidget;
+class UPromptSubsystem;
 
 UCLASS(Abstract)
 class ACCELBYTEWARS_API UShopWidget : public UAccelByteWarsActivatableWidget
@@ -37,6 +40,7 @@ protected:
 
 	void OnStoreItemClicked(UObject* Item) const;
 	void OnRefreshButtonClicked();
+	void OnOpenWebshopButtonClicked();
 
 	UFUNCTION()
 	void SwitchCategory(FName Id);
@@ -91,6 +95,9 @@ private:
 	
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget, BlueprintProtected = true, AllowPrivateAccess = true))
 	UCommonButtonBase* Btn_Refresh;
+	
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget, BlueprintProtected = true, AllowPrivateAccess = true))
+	UCommonButtonBase* Btn_WebShop;
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UAccelByteWarsActivatableWidget> DetailWidgetClass;

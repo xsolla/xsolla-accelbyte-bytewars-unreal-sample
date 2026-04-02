@@ -34,9 +34,13 @@ public class AccelByteWars : ModuleRules
 			"Json",
 			"JsonUtilities",
 			"HTTP",
-			"EngineSettings",
-			"AIModule"
-		});
+            "EngineSettings",
+            "OnlineSubsystemSteam",
+            "AIModule",
+            "XsollaBackendSdk",
+            "XsollaLogin",
+            "WebBrowserWidget"
+        });
 
 
 		PrivateDependencyModuleNames.AddRange(new string[] 

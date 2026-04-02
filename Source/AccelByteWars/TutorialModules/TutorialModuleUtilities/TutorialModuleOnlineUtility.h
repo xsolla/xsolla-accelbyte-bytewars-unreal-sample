@@ -15,6 +15,7 @@
 #include "Core/UI/Components/Prompt/FTUE/FTUEModels.h"
 #include "Core/UI/Components/WidgetValidator/WidgetValidatorModels.h"
 #include "Core/AssetManager/TutorialModules/TutorialModuleUtility.h"
+#include "XsollaLoginTypes.h"
 #include "TutorialModuleOnlineUtility.generated.h"
 
 ACCELBYTEWARS_API DECLARE_LOG_CATEGORY_EXTERN(LogAccelByteWarsTutorialModuleOnlineUtility, Log, All);
@@ -95,6 +96,8 @@ public:
 	static FString GetMatchPoolP2POverride() { return MatchPoolP2POverride; }
 
 	static const FIAMPublicSystemConfigResponse& GetPublicSystemConfig() { return PublicSystemConfig; }
+	static FXsollaLoginData* GetXsollaLoginData(int LocalUserNum) { return XsollaLoginData.Find(LocalUserNum); }
+	static void SetXsollaLoginData(int32 LocalUserNum, FXsollaLoginData InXsollaLoginData) { XsollaLoginData.Add(LocalUserNum,InXsollaLoginData); }
 
 private:
 	static void CheckForDedicatedServerVersionOverride();
@@ -145,4 +148,5 @@ private:
 	inline static FString StudioNameAGSStarter = TEXT("");
 
 	inline static FIAMPublicSystemConfigResponse PublicSystemConfig{};
+	inline static TMap<int32, FXsollaLoginData> XsollaLoginData;
 };
