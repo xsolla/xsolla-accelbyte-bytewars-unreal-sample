@@ -73,6 +73,14 @@ Plugins/*/Intermediate/*
 # Cache files for the editor to use
 DerivedDataCache/*
 
+# Ignore plugins binaries on deep subfolders
+Plugins/**/Binaries/*
+Plugins/**/Intermediate/*
+
+# macOS system files
+.DS_Store
+._*
+
 # Ignore IDE files
 .idea/*
 .vsconfig

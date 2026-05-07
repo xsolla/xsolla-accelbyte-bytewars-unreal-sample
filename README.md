@@ -35,11 +35,30 @@ To clone the repository and checkout the submodule at the same time, run the fol
     git clone --branch <branch-name> --recursive git@github.com:AccelByte/accelbyte-unreal-bytewars-game.git
 ```
 
-## Compile Byte Wars
+## Compile Byte Wars (Windows)
 
 1. Right click on AccelByteWars.uproject, select unreal engine version..  then choose unreal engine version 5.7 that you already installed.
 2. Open AccelByteWars.sln generated from step number 1, using your prefered IDE.
-3. Compile the game project using Development Editor - Win64.
+3. Compile the game project using the **Development Editor - Win64**.
+
+## Compile Byte Wars (Mac Apple Silicon)
+
+Byte Wars supports native **Apple Silicon (`arm64`)** builds. Intel Macs are not supported.
+
+1. Install full **Xcode.app** from the Mac App Store (Command Line Tools alone are not sufficient). Accept the license when prompted:
+   ```bash
+   sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+   sudo xcodebuild -license accept
+   ```
+2. Install **.NET 8 SDK** from [Microsoft](https://dotnet.microsoft.com/download/dotnet/8.0), required by UnrealBuildTool.
+3. Generate the Xcode project files (replace `$UE_ROOT` with your UE 5.7 install path):
+   ```bash
+   "$UE_ROOT/Engine/Build/BatchFiles/Mac/GenerateProjectFiles.sh" \
+     -project="$(pwd)/AccelByteWars.uproject" -game -engine
+   ```
+4. Open `AccelByteWars.xcworkspace` in Xcode and build using the **Development Editor - Mac** configuration.
+
+> **Note:** To run a locally packaged `.app` without a Developer ID certificate, set `bMacSignToRunLocally=True` in `Config/DefaultEngine.ini` under `[/Script/MacTargetPlatform.XcodeProjectSettings]`. Keep it `False` for distribution builds.
 
 ## Run Byte Wars Offline (Main Branch)
 
@@ -49,6 +68,20 @@ To clone the repository and checkout the submodule at the same time, run the fol
 
 1. Open unreal editor by double clicking on AccelByteWars.uproject or run unreal editor via IDE (Development Editor - Win64).
 2. Click on PIE button to run the game.
+
+#### Run via Editor Standalone
+
+**Windows** (adjust path to your UE 5.7 install):
+```batch
+"C:\Path\To\UE_5.7\Engine\Binaries\Win64\UnrealEditor.exe" AccelByteWars.uproject -game
+```
+
+**macOS** (set `UE_ROOT` to the directory containing `Engine/`):
+```bash
+export UE_ROOT="$HOME/EpicGames/UE_5.7"
+"$UE_ROOT/Engine/Binaries/Mac/UnrealEditor.app/Contents/MacOS/UnrealEditor" \
+  "$(pwd)/AccelByteWars.uproject" -game
+```
 
 #### Run via Packaged Game Client
 
