@@ -28,13 +28,13 @@
 			]
 		},
 		{
+			"Name": "GameplayAbilities",
+			"Enabled": true
+		},
+		{
 			"Name": "CommonUI",
 			"Enabled": true
 		},
-        {
-            "Name": "GameplayAbilities",
-            "Enabled": true
-        },
 		{
 			"Name": "Metasound",
 			"Enabled": true
@@ -42,6 +42,21 @@
 		{
 			"Name": "OnlineSubsystemSteam",
 			"Enabled": true
+		},
+		{
+			"Name": "OnlineSubsystemEOS",
+			"Enabled": true
+		},
+		{
+			"Name": "OnlineSubsystemGoogle",
+			"Enabled": true
+		},
+		{
+			"Name": "OnlineSubsystemGooglePlay",
+			"Enabled": true,
+			"SupportedTargetPlatforms": [
+				"Android"
+			]
 		},
 		{
 			"Name": "Xsolla",

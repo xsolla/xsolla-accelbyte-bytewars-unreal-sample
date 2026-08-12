@@ -499,11 +499,11 @@ TWeakObjectPtr<UAccelByteWarsButtonBase> UAccelByteWarsActivatableWidget::Genera
 	Metadata.GenerateWidgetRef = Button.Get();
 
 	// Refresh button alignment since the default alignment upon a widget is spawned is "Align_Fill".
-	if (UVerticalBoxSlot* VerticalSlot = StaticCast<UVerticalBoxSlot*>(ButtonSlot))
+	if (UVerticalBoxSlot* VerticalSlot = Cast<UVerticalBoxSlot>(ButtonSlot))
 	{
 		VerticalSlot->SetHorizontalAlignment(EHorizontalAlignment::HAlign_Center);
 	}
-	else if (UHorizontalBoxSlot* HorizontalSlot = StaticCast<UHorizontalBoxSlot*>(ButtonSlot))
+	else if (UHorizontalBoxSlot* HorizontalSlot = Cast<UHorizontalBoxSlot>(ButtonSlot))
 	{
 		HorizontalSlot->SetHorizontalAlignment(EHorizontalAlignment::HAlign_Center);
 	}
@@ -579,11 +579,11 @@ TWeakObjectPtr<UAccelByteWarsButtonBase> UAccelByteWarsActivatableWidget::Genera
 	Metadata.GenerateWidgetRef = Button.Get();
 
 	// Refresh button alignment since the default alignment upon a widget is spawned is "Align_Fill".
-	if (UVerticalBoxSlot* VerticalSlot = StaticCast<UVerticalBoxSlot*>(ButtonSlot))
+	if (UVerticalBoxSlot* VerticalSlot = Cast<UVerticalBoxSlot>(ButtonSlot))
 	{
 		VerticalSlot->SetHorizontalAlignment(EHorizontalAlignment::HAlign_Center);
 	}
-	else if (UHorizontalBoxSlot* HorizontalSlot = StaticCast<UHorizontalBoxSlot*>(ButtonSlot))
+	else if (UHorizontalBoxSlot* HorizontalSlot = Cast<UHorizontalBoxSlot>(ButtonSlot))
 	{
 		HorizontalSlot->SetHorizontalAlignment(EHorizontalAlignment::HAlign_Center);
 	}

@@ -34,14 +34,19 @@ public class AccelByteWars : ModuleRules
 			"Json",
 			"JsonUtilities",
 			"HTTP",
-            "EngineSettings",
-            "OnlineSubsystemSteam",
-            "AIModule",
-            "XsollaBackendSdk",
-            "XsollaLogin",
-            "WebBrowserWidget"
-        });
+			"EngineSettings",
+			"OnlineSubsystemSteam",
+			"AIModule",
+			"XsollaBackendSdk",
+			"XsollaLogin",
+			"WebBrowserWidget"
+		});
 
+		// Add BlackBox only for supported platforms.
+		if (Target.Platform != UnrealTargetPlatform.Android)
+		{
+			PublicDependencyModuleNames.Remove("BlackBoxSDK");
+		}
 
 		PrivateDependencyModuleNames.AddRange(new string[] 
 		{

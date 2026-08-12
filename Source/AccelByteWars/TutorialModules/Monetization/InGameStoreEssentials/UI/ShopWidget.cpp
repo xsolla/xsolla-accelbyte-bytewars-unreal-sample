@@ -4,6 +4,7 @@
 
 
 #include "ShopWidget.h"
+
 #include "CommonButtonBase.h"
 #include "StoreItemDetailWidget.h"
 #include "Components/TileView.h"
@@ -12,13 +13,6 @@
 #include "Core/UI/AccelByteWarsBaseUI.h"
 #include "Core/UI/Components/AccelByteWarsTabListWidget.h"
 #include "Core/UI/MainMenu/Store/StoreItemModel.h"
-
-#include "XsollaLoginSubsystem.h"
-#include "XsollaLoginSave.h"
-#include "TutorialModuleUtilities/TutorialModuleOnlineUtility.h"
-#include "Monetization/InGameBrowser/InGameBrowserSubsystem.h"
-
-#define LOCTEXT_NAMESPACE "AccelByteWars"
 
 // @@@SNIPSTART ShopWidget.cpp-NativeOnActivated
 // @@@MULTISNIP Subsystem {"selectedLines": ["1-2", "8-9", "20"]}
@@ -37,7 +31,6 @@ void UShopWidget::NativeOnActivated()
 	// Event binding.
 	Btn_Back->OnClicked().AddUObject(this, &ThisClass::DeactivateWidget);
 	Btn_Refresh->OnClicked().AddUObject(this, &ThisClass::OnRefreshButtonClicked);
-	Btn_WebShop->OnClicked().AddUObject(this, &ThisClass::OnOpenWebshopButtonClicked);
 	Tl_ItemCategory->OnTabSelected.AddDynamic(this, &ThisClass::SwitchCategory);
 	Tv_ContentOuter->OnItemClicked().AddUObject(this, &ThisClass::OnStoreItemClicked);
 	Tv_ContentOuter->ClearListItems();
@@ -55,7 +48,6 @@ void UShopWidget::NativeOnDeactivated()
 
 	Btn_Back->OnClicked().RemoveAll(this);
 	Btn_Refresh->OnClicked().RemoveAll(this);
-	Btn_WebShop->OnClicked().RemoveAll(this);
 	Tv_ContentOuter->OnItemClicked().RemoveAll(this);
 	Tl_ItemCategory->OnTabSelected.RemoveAll(this);
 	Tv_ContentOuter->ClearListItems();
@@ -203,61 +195,6 @@ void UShopWidget::OnRefreshButtonClicked()
 	}
 }
 // @@@SNIPEND
-
-void UShopWidget::OnOpenWebshopButtonClicked()
-{
-	int LocalUserNum = 0;
-	FXsollaLoginData* LoginData = UTutorialModuleOnlineUtility::GetXsollaLoginData(LocalUserNum);
-
-	bool bUsePreviewStore = false;
-	bool bUseExternalBrowser = false;
-	FParse::Bool(FCommandLine::Get(), TEXT("-bUsePreviewStore="), bUsePreviewStore);
-	FParse::Bool(FCommandLine::Get(), TEXT("-bUseExternalBrowser="), bUseExternalBrowser);
-    
-	FString URL;
-
-	if (bUsePreviewStore) 
-	{
-		FString PreviewWebShopURL = "https://sitebuilder.xsolla.com/preview/bytewars/";
-		URL = FString::Printf(TEXT("%s?token=%s"), *PreviewWebShopURL, *LoginData->AuthToken.JWT);
-	}
-	else
-	{
-		FString PublishedWebShopURL = "https://bytewars.xsolla.site/";
-		URL = FString::Printf(TEXT("%s?token=%s"), *PublishedWebShopURL, *LoginData->AuthToken.JWT);
-	}
-
-	if (bUseExternalBrowser) 
-	{
-		FPlatformProcess::LaunchURL(*URL, nullptr, nullptr);
-	}
-	else 
-	{
-		UInGameBrowserSubsystem* BrowserSubsystem = GetGameInstance()->GetSubsystem<UInGameBrowserSubsystem>();
-		if (BrowserSubsystem)
-		{
-			FOnBrowserClosed CloseDelegate;
-			
-			CloseDelegate.BindWeakLambda(this,[this](const FString& error)
-				{
-					if (!error.IsEmpty()) {
-						UPromptSubsystem* PromptSubsystem = GetGameInstance()->GetSubsystem<UPromptSubsystem>();
-
-						PromptSubsystem->ShowDialoguePopUp(
-							ERROR_PROMPT_TEXT,
-							FText::FromString(error),
-							EPopUpType::MessageOk,
-							FPopUpResultDelegate::CreateWeakLambda(this, [](EPopUpResult Result){})
-						);
-					}
-
-					OnRefreshButtonClicked();
-				});
-
-			BrowserSubsystem->OpenBrowser(URL, this, CloseDelegate);
-		}
-	}
-}
 
 // @@@SNIPSTART ShopWidget.cpp-SwitchCategory
 // @@@MULTISNIP Setup {"selectedLines": ["1-5", "10-11"]}

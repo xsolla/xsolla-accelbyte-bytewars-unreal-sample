@@ -1,6 +1,6 @@
 [submodule "Plugins/store-ue4-sdk"]
 	path = Plugins/store-ue4-sdk
 	url = git@github.com:xsolla/store-ue4-sdk.git
-[submodule "Plugins/xsolla-backend-unreal-sdk"]
-	path = Plugins/xsolla-backend-unreal-sdk
-	url = git@github.com:accelbyte-sdk/xsolla-backend-unreal-sdk.git
+[submodule "Plugins/xsolla-accelbyte-services-unreal-sdk"]
+	path = Plugins/xsolla-accelbyte-services-unreal-sdk
+	url = git@github.com:xsolla/xsolla-accelbyte-services-unreal-sdk.git
