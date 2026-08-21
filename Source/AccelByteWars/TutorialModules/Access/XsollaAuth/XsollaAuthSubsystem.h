@@ -5,12 +5,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Auth/XsollaAuth.h"
+#include "Auth/XsollaAccelByteAuth.h"
 #include "Access/AuthEssentials/AuthEssentialsModels.h"
 #include "Core/AssetManager/TutorialModules/TutorialModuleSubsystem.h"
 #include "XsollaAuthSubsystem.generated.h"
-
-struct FXsollaLoginData;
 
 UCLASS()
 class ACCELBYTEWARS_API UXsollaAuthSubsystem : public UTutorialModuleSubsystem
@@ -27,19 +25,16 @@ public:
 	void LoginWithSteam(const FAuthOnLoginCompleteDelegate& OnLoginComplete);
 
 protected:
-	UFUNCTION()
-	void OnXsollaLoginSuccess(const FXsollaLoginData LoginData, FLoginUser LoginUser);
+	void OnXsollaLoginSuccess(const FXsollaAccelByteLoginResult& LoginResult);
 
-	UFUNCTION()
 	void OnXsollaLoginCancelled();
 
-	UFUNCTION()
-	void OnXsollaLoginFailed(const FString& Description);
+	void OnXsollaLoginFailed(const FString& Code, const FString& Description);
 
 private:
-	FOnXsollaLoginSuccess OnLoginSuccessDelegate;
-	FOnXsollaLoginCancelled OnLoginCancelledDelegate;
-	FOnXsollaLoginFailed OnLoginFailedDelegate;
+	FOnXsollaAccelByteLoginSuccess OnLoginSuccessDelegate;
+	FOnXsollaAccelByteLoginCancelled OnLoginCancelledDelegate;
+	FOnXsollaAccelByteLoginFailed OnLoginFailedDelegate;
 
 	FAuthOnLoginCompleteDelegate PendingLoginComplete;
 };

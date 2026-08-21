@@ -37,7 +37,7 @@ void UXsollaWebshopWidget::NativeOnActivated()
 
     BaseAllowedDomain.Empty();
 
-    const FXsollaLoginData* LoginData = UXsollaAuthModels::GetXsollaLoginData(0);
+    const FXsollaAccelByteLoginResult* LoginData = UXsollaAuthModels::GetXsollaLoginData(0);
     if (!LoginData)
     {
         UE_LOG(LogXsollaWebshop, Warning, TEXT("Cannot open webshop. No cached Xsolla login data for local user 0."));
@@ -51,7 +51,7 @@ void UXsollaWebshopWidget::NativeOnActivated()
     FParse::Bool(FCommandLine::Get(), TEXT("-bUseExternalBrowser="), bUseExternalBrowser);
 
     const FString& BaseURL = bUsePreviewStore ? PreviewWebshopBaseURL : PublishedWebshopBaseURL;
-    const FString URL = FString::Printf(TEXT("%s?token=%s"), *BaseURL, *LoginData->AuthToken.JWT);
+    const FString URL = FString::Printf(TEXT("%s?token=%s"), *BaseURL, *LoginData->XsollaAccessToken);
 
     if (bUseExternalBrowser)
     {

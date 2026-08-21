@@ -37,7 +37,7 @@ public class AccelByteWars : ModuleRules
 			"EngineSettings",
 			"OnlineSubsystemSteam",
 			"AIModule",
-			"XsollaBackendSdk",
+			"XsollaAccelByteSdk",
 			"XsollaLogin",
 			"WebBrowserWidget"
 		});

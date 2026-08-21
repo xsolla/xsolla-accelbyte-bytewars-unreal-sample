@@ -63,7 +63,7 @@
 			"Enabled": true
 		},
 		{
-			"Name": "XsollaBackendSdk",
+			"Name": "XsollaAccelByteSdk",
 			"Enabled": true
 		},
 		{
