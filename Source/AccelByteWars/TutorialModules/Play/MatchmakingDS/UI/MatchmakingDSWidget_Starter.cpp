@@ -175,13 +175,15 @@ void UMatchmakingDSWidget_Starter::ChangeWidgetState(const EWidgetState State)
 	// Requesting server loading state based on P2P or DS and Host or Client
 	if (State == EWidgetState::REQUESTING_SERVER)
 	{
-		const TSharedPtr<FOnlineSessionInfoAccelByteV2> SessionInfo =
-			StaticCastSharedPtr<FOnlineSessionInfoAccelByteV2>(SessionInvite->Session.Session.SessionInfo);
+		const FNamedOnlineSession* Session = OnlineSession->GetSession(
+			OnlineSession->GetPredefinedSessionNameFromType(EAccelByteV2SessionType::GameSession));
+		const TSharedPtr<FOnlineSessionInfoAccelByteV2> SessionInfo = Session ?
+			StaticCastSharedPtr<FOnlineSessionInfoAccelByteV2>(Session->SessionInfo) : nullptr;
 		if (SessionInfo && SessionInfo->GetServerType() == EAccelByteV2SessionConfigurationServerType::P2P)
 		{
 			Tb_LoadingText->SetText(
-				OnlineSession->GetLocalPlayerUniqueNetId(GetOwningPlayer()) == SessionInfo->GetLeaderId()?
-				TEXT_STARTING_AS_HOST:
+				OnlineSession->GetLocalPlayerUniqueNetId(GetOwningPlayer()) == SessionInfo->GetLeaderId() ?
+				TEXT_STARTING_AS_HOST :
 				TEXT_WAITING_HOST);
 		}
 		else

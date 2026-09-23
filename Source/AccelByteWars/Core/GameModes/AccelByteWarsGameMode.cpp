@@ -352,20 +352,24 @@ void AAccelByteWarsGameMode::AssignTeamManually(int32& InOutTeamId) const
 		InOutTeamId = INDEX_NONE;
 
 		// Assign to empty team
-		for (const int EmptyTeamId : ABGameState->GetEmptyTeamIds())
 		{
-			InOutTeamId = EmptyTeamId;
-			break;
+			const TArray<int32> EmptyTeamIds = ABGameState->GetEmptyTeamIds();
+			if (EmptyTeamIds.Num() > 0)
+			{
+				InOutTeamId = EmptyTeamIds[0];
+			}
 		}
 		break;
 	case EGameModeType::TDM:
 		InOutTeamId = INDEX_NONE;
 
 		// Assign to empty team
-		for (const int EmptyTeamId : ABGameState->GetEmptyTeamIds())
 		{
-			InOutTeamId = EmptyTeamId;
-			break;
+			const TArray<int32> EmptyTeamIds = ABGameState->GetEmptyTeamIds();
+			if (EmptyTeamIds.Num() > 0)
+			{
+				InOutTeamId = EmptyTeamIds[0];
+			}
 		}
 
 		if (InOutTeamId == INDEX_NONE)

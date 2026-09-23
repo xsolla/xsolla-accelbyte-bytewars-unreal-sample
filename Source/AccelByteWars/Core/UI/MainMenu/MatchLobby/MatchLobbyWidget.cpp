@@ -66,6 +66,10 @@ void UMatchLobbyWidget::NativeOnActivated()
 	{
 		Btn_Start->SetVisibility(GetOwningPlayer()->HasAuthority() ? ESlateVisibility::Visible : ESlateVisibility::Collapsed);
 	}
+	else
+	{
+		Btn_Start->SetVisibility(ESlateVisibility::Visible);
+	}
 }
 
 void UMatchLobbyWidget::NativeOnDeactivated()

@@ -758,8 +758,11 @@ bool UAccelByteWarsOnlineSession::TravelToSession(const FName SessionName)
 	// Find address
 #pragma region "Adapted for P2P and DS"
 	FString ServerAddress = "";
-	const bool bIsMatchmakingP2PHost = GetABSessionInt()->IsPlayerP2PHost(
-		GetLocalPlayerUniqueNetId(PlayerController).ToSharedRef().Get(), SessionName);
+	const FUniqueNetIdPtr LocalUserNetId = GetLocalPlayerUniqueNetId(PlayerController);
+	const bool bIsMatchmakingP2PHost =
+		LocalUserNetId.IsValid() &&
+		AbSessionInfo->GetLeaderId().IsValid() &&
+		GetABSessionInt()->IsPlayerP2PHost(LocalUserNetId.ToSharedRef().Get(), SessionName);
 	const bool bIsMatchSessionP2PHost =
 		AbSessionInfo->GetServerType() == EAccelByteV2SessionConfigurationServerType::P2P && Session->bHosting;
 	if (bIsMatchmakingP2PHost || bIsMatchSessionP2PHost)

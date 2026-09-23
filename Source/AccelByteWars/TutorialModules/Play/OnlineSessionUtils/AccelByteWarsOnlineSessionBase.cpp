@@ -6,6 +6,7 @@
 #include "AccelByteWarsOnlineSessionBase.h"
 
 #include "OnlineSubsystemAccelByteSessionSettings.h"
+#include "OnlineSubsystemAccelByteTypes.h"
 #include "OnlineSubsystemUtils.h"
 #include "Online/OnlineSessionNames.h"
 
@@ -83,7 +84,15 @@ APlayerController* UAccelByteWarsOnlineSessionBase::GetPlayerControllerByUniqueN
 			const int32 LocalPlayerNum = GetLocalUserNumFromPlayerController(PC);
 			if (LocalPlayerNum != INDEX_NONE)
 			{
-				if (GetIdentityInt()->GetUniquePlayerId(LocalPlayerNum) == UniqueNetId)
+				const FUniqueNetIdPtr LocalNetId = GetIdentityInt()->GetUniquePlayerId(LocalPlayerNum);
+				const FUniqueNetIdAccelByteUserPtr LocalAbId =
+					LocalNetId.IsValid() ? FUniqueNetIdAccelByteUser::TryCast(*LocalNetId) : nullptr;
+				const FUniqueNetIdAccelByteUserPtr TargetAbId =
+					UniqueNetId.IsValid() ? FUniqueNetIdAccelByteUser::TryCast(*UniqueNetId) : nullptr;
+				const bool bIsSameUser = LocalAbId.IsValid() && TargetAbId.IsValid() ?
+					LocalAbId->GetAccelByteId() == TargetAbId->GetAccelByteId() :
+					LocalNetId == UniqueNetId;
+				if (bIsSameUser)
 				{
 					MatchedPC = PC;
 					break;

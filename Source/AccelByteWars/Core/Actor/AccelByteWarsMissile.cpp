@@ -781,7 +781,11 @@ void AAccelByteWarsMissile::SpawnMissileTrail(const TObjectPtr<UNiagaraSystem> T
 	FActorSpawnParameters SpawnParameters;
 	SpawnParameters.Owner = this;
 	SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+#if ENGINE_MAJOR_VERSION > 5 || (ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 8)
+	SpawnParameters.CustomPreSpawnInitialization = [TrailFx](AActor* SpawnedActor)
+#else
 	SpawnParameters.CustomPreSpawnInitalization = [TrailFx](AActor* SpawnedActor)
+#endif
 	{
 		// Set the trail effect if any.
 		AAccelByteWarsMissileTrail* PreMissileTrail = Cast<AAccelByteWarsMissileTrail>(SpawnedActor);

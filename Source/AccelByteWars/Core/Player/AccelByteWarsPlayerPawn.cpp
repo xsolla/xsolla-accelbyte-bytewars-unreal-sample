@@ -158,7 +158,11 @@ T* AAccelByteWarsPlayerPawn::SpawnActorInWorld(
 	FActorSpawnParameters SpawnParameters;
 	SpawnParameters.Owner = Owner;
 	SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+#if ENGINE_MAJOR_VERSION > 5 || (ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 8)
+	SpawnParameters.CustomPreSpawnInitialization = PreSpawnInitialization;
+#else
 	SpawnParameters.CustomPreSpawnInitalization = PreSpawnInitialization;
+#endif
 
 	T* NewActor = Owner->GetWorld()->SpawnActor<T>(ActorClass, FTransform(Rotation, Location), SpawnParameters);
 	if (NewActor == nullptr)

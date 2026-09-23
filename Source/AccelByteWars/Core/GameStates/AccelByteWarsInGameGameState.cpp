@@ -108,7 +108,11 @@ void AAccelByteWarsInGameGameState::MulticastSpawnExplosionFx_Implementation(con
 	{
 		FActorSpawnParameters Params;
 		Params.Owner = OwnerActor;
+#if ENGINE_MAJOR_VERSION > 5 || (ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 8)
+		Params.CustomPreSpawnInitialization = [this, Color](AActor* SpawnedActor)
+#else
 		Params.CustomPreSpawnInitalization = [this, Color](AActor* SpawnedActor)
+#endif
 		{
 			if (AAccelByteWarsFxActor* FxActor = Cast<AAccelByteWarsFxActor>(SpawnedActor))
 			{

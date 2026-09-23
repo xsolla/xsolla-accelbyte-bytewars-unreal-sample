@@ -539,12 +539,17 @@ void UPlayWithPartySubsystem::UpdatePartyMemberGameSession(const FUniqueNetIdPtr
 			// Remove invalid party member data.
 			for (auto Pair : MembersGameSessionId->Values)
 			{
+#if ENGINE_MAJOR_VERSION > 5 || (ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 8)
+				const FString PairKeyStr = *Pair.Key;
+#else
+				const FString& PairKeyStr = Pair.Key;
+#endif
 				bool bIsValidMember = false;
 
 				for (auto& ValidMember : PartySession->RegisteredPlayers)
 				{
 					const FUniqueNetIdAccelByteUserRef ValidMemberUserABId = StaticCastSharedRef<const FUniqueNetIdAccelByteUser>(ValidMember);
-					if (Pair.Key.Equals(ValidMemberUserABId->GetAccelByteId()))
+					if (PairKeyStr.Equals(ValidMemberUserABId->GetAccelByteId()))
 					{
 						bIsValidMember = true;
 						break;
@@ -553,7 +558,7 @@ void UPlayWithPartySubsystem::UpdatePartyMemberGameSession(const FUniqueNetIdPtr
 
 				if (!bIsValidMember)
 				{
-					MembersGameSessionId->RemoveField(Pair.Key);
+					MembersGameSessionId->RemoveField(PairKeyStr);
 				}
 			}
 

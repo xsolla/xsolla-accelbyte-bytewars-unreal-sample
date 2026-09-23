@@ -35,11 +35,10 @@ public class AccelByteWars : ModuleRules
 			"JsonUtilities",
 			"HTTP",
 			"EngineSettings",
-			"OnlineSubsystemSteam",
 			"AIModule",
-			"XsollaAccelByteSdk",
 			"XsollaLogin",
-			"WebBrowserWidget"
+			"WebBrowserWidget",
+			"XsollaAccelByteSdk"
 		});
 
 		// Add BlackBox only for supported platforms.

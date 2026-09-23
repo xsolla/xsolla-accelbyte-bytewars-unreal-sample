@@ -139,10 +139,17 @@ bool UMatchmakingP2POnlineSession::TravelToSession(const FName SessionName)
 		return false;
 	}
 
+	const FUniqueNetIdPtr LocalUserNetId = GetLocalPlayerUniqueNetId(PlayerController);
+	if (!LocalUserNetId.IsValid() || !AbSessionInfo->GetLeaderId().IsValid())
+	{
+		UE_LOG_MATCHMAKINGP2P(Warning, TEXT("Local user or session leader is not ready yet"));
+		return false;
+	}
+
 	FString ServerAddress = "";
 
 	// If local user is not the P2P host -> connect to host
-	if (!GetABSessionInt()->IsPlayerP2PHost(GetLocalPlayerUniqueNetId(PlayerController).ToSharedRef().Get(), SessionName)) 
+	if (!GetABSessionInt()->IsPlayerP2PHost(LocalUserNetId.ToSharedRef().Get(), SessionName))
 	{
 		UE_LOG_MATCHMAKINGP2P(Log, TEXT("Host is not a P2P host, traveling to host"));
 		GetABSessionInt()->GetResolvedConnectString(SessionName, ServerAddress);

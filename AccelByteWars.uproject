@@ -63,11 +63,11 @@
 			"Enabled": true
 		},
 		{
-			"Name": "XsollaAccelByteSdk",
+			"Name": "WebBrowserWidget",
 			"Enabled": true
 		},
 		{
-			"Name": "WebBrowserWidget",
+			"Name": "XsollaAccelByteSdk",
 			"Enabled": true
 		}
 	]
